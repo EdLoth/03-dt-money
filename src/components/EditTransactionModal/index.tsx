@@ -20,12 +20,13 @@ const newTransactionFormSchema = z.object({
   id: z.number(),
   description: z.string(),
   price: z.number(),
-  category: z.string(),
-  type: z.enum(['income', 'outcome']),
+  category: z.enum(["Salario", "Pagamentos", "Contas", "Compras", "Saúde", "Lazer", "Emergencia", "Construção", "Transporte", "Assinaturas", "Mercado", "Estudos"]),
+  type: z.enum(["income", "outcome"]),
   dateAt: z.string(),
-})
+});
 
-type TransactionFormInputs = z.infer<typeof newTransactionFormSchema>
+type TransactionFormInputs = z.infer<typeof newTransactionFormSchema>;
+
 
 type Props = {
   id: number
@@ -58,7 +59,11 @@ export function EditTransactionModal({ id }: Props) {
       price,
       type,
       dateAt,
-    })
+      method: 'cash', // Valor padrão para method
+      quantity: 1, // Valor padrão para quantity
+      createdAt: new Date().toISOString(), // Valor padrão para createdAt
+      debited: false // Valor padrão para debited
+    });
 
     reset()
   }
